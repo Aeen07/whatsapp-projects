@@ -5,7 +5,7 @@
     background-color: #ededed;
 }
 
-.sidebar_headerLeft > .css-78trlr-MuiButtonBase-root-MuiIconButton-root {
+.sidebar_headerLeft > .css-1yxmbwk {
     display: none;
 }
 
@@ -17,7 +17,7 @@
         width: 90vw;
     }
 
-    .sidebar_headerLeft > .css-78trlr-MuiButtonBase-root-MuiIconButton-root {
+    .sidebar_headerLeft > .css-1yxmbwk {
         display: flex;
     }
 }
