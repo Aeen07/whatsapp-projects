@@ -4,6 +4,29 @@
     flex-direction: column;
 }
 
+.chat_header > .css-78trlr-MuiButtonBase-root-MuiIconButton-root {
+    display: none;
+}
+
+@media only screen and (max-width: 600px) {
+    .chat {
+        flex: 1;
+    }
+
+    .chat_header {
+        padding: 15px 15px 15px 70px !important;
+    }
+
+    .chat_header > .css-78trlr-MuiButtonBase-root-MuiIconButton-root {
+        display: flex;
+    }
+
+    .chat_headerRight {
+        min-width: 0px !important;
+        flex-direction: column;
+    }
+}
+
 .chat_header {
     padding: 15px;
     display: flex;

@@ -5,11 +5,13 @@ import DonutLargeIcon from '@mui/icons-material/DonutLarge';
 import ChatIcon from '@mui/icons-material/Chat';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import SearchIcon from '@mui/icons-material/Search';
+import DehazeIcon from '@mui/icons-material/Dehaze';
 import SidebarChat from './SidebarChat';
 import db from './firebase_str';
 import { useStateValue } from './StateProvider';
 
 function Sidebar() {
+  const [sidebarOpen, setSiderbarOpen] = useState(true);
   const [rooms, setRooms] = useState([]);
   const [{ user }, dispatch] = useStateValue();
 
@@ -24,9 +26,14 @@ function Sidebar() {
   }, [])
 
   return (
-    <div className='sidebar'>
+    <div className={sidebarOpen ? 'sidebar' : 'invisible'}>
       <div className="sidebar_header">
-        <Avatar src={user?.photoURL}/>
+        <div className="sidebar_headerLeft">
+          <IconButton onClick={(e) => (setSiderbarOpen(!sidebarOpen))}>
+              <DehazeIcon />
+          </IconButton>
+          <Avatar src={user?.photoURL}/>
+        </div>
         <div className="sidebar_headerRight">
             <IconButton>
                 <DonutLargeIcon />

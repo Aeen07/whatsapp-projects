@@ -8,6 +8,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
 import MicIcon from '@mui/icons-material/Mic';
 import { useParams } from 'react-router-dom';
+import DehazeIcon from '@mui/icons-material/Dehaze';
 import db from './firebase_str';
 import { useStateValue } from './StateProvider';
 import firebase from 'firebase/compat/app';
@@ -83,7 +84,7 @@ function Chat() {
 
         <div className="chat_footer">
             <InsertEmoticonIcon />
-            <form>
+            <form onSubmit={sendMessage}>
                 <input 
                 value={input} 
                 onChange={e => setInput(e.target.value)} 
