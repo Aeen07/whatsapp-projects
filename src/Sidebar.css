@@ -20,24 +20,9 @@
     .sidebar_headerLeft > .css-1yxmbwk {
         display: flex;
     }
-}
 
-@media only screen and ( 326px < width <= 600px) {
     .invisible {
         top: 47px;
-    }
-    
-}
-
-@media only screen and (313px < width <= 326px) {
-    .invisible {
-        top: 55px;
-    }
-}
-
-@media only screen and (width <= 313px) {
-    .invisible {
-        top: 65px;
     }
 }
 
