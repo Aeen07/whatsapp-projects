@@ -13,8 +13,8 @@
     .sidebar {
         position: absolute;
         z-index: 10;
-        height: 95vh;
-        width: 90vw;
+        height: 95dvh;
+        width: 90dvw;
     }
 
     .sidebar_headerLeft > .css-1yxmbwk {
