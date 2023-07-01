@@ -14,22 +14,10 @@ const firebaseConfig = {
     measurementId: "G-YXES4XWMSW"
   };
 
-// const firebaseConfig = {
-//   apiKey: "AIzaSyAW0SrlTBbVgs16qs0USp4XfuBQPVNxFYo",
-//   authDomain: "whatsapp-1f5df.firebaseapp.com",
-//   projectId: "whatsapp-1f5df",
-//   storageBucket: "whatsapp-1f5df.appspot.com",
-//   messagingSenderId: "90740152315",
-//   appId: "1:90740152315:web:9b582e08cb9c94c8aadd5e",
-//   measurementId: "G-QCFBV9C2DS"
-// };
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
-
 const db = firebaseApp.firestore();
-const auth = firebase.auth();
+const auth = firebaseApp.auth();
 const provider = new firebase.auth.GoogleAuthProvider();
-
 export { auth, provider };
 export default db;
-//2:08:02

@@ -19,6 +19,19 @@ a {
     margin-bottom: 8px;
 }
 
+.sidebarChat_info > p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 20vw;
+}
+
+@media only screen and (max-width: 600px) {
+    .sidebarChat_info > p {
+        width: 35vw !important;
+    }
+}
+
 .sidebarChat_info {
     margin-left: 15px;
 }

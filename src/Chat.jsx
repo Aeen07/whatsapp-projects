@@ -1,4 +1,4 @@
-import React from 'react'
+import Picker from 'emoji-picker-react';
 import './Chat.css'
 import { Avatar, IconButton } from '@mui/material'
 import { useState, useEffect } from 'react';
@@ -12,13 +12,18 @@ import DehazeIcon from '@mui/icons-material/Dehaze';
 import db from './firebase_str';
 import { useStateValue } from './StateProvider';
 import firebase from 'firebase/compat/app';
+import { useRef } from 'react';
 
 function Chat() {
+  const inputRef = useRef(null);
+  const [emojiPopup, setEmojiPopup] = useState(false);
   const [input, setInput] = useState('');
   const { roomId } = useParams();
   const [roomName, setRoomName] = useState('');
   const [messages, setMessages] = useState([]);
   const [{ user }, dispatch] = useStateValue();
+  const [users, setUsers] = useState([]);
+  const [cursor, setCursor] = useState(null);
 
   useEffect(() => {
     if (roomId) {
@@ -28,8 +33,17 @@ function Chat() {
         db.collection('rooms').doc(roomId).collection('messages').orderBy('timestamp', 'asc').onSnapshot((snapshot) => {
             setMessages(snapshot.docs.map((doc) => doc.data()))
         })
+
+        db.collection('rooms').doc(roomId).onSnapshot((snapshot) =>
+            setUsers(snapshot.data().people))
+
     }
   }, [roomId])
+  
+  useEffect(() => {
+    inputRef.current.selectionEnd = cursor;
+  }, [cursor])
+
 
   const sendMessage = (e) => {
     e.preventDefault();
@@ -44,20 +58,35 @@ function Chat() {
     setInput('')
   }
 
+  const handleShowEmoji = () => {
+    inputRef.current.focus();
+    setEmojiPopup(!emojiPopup);
+  }
+
+  const emojiClicked = (emojiObject, e) => {
+    // setInput(previous => previous + emojiObject.emoji);
+    const ref = inputRef.current;
+    ref.focus();
+    const start = input.substring(0, ref.selectionStart);
+    const end = input.substring(ref.selectionStart);
+    const text = start + emojiObject.emoji + end;
+    setInput(text);
+    setCursor(start.length+emojiObject.emoji.length);
+  }
+
   return (
+    <>
     <div className='chat'>
         <div className="chat_header">
             <Avatar src={`https://avatars.dicebear.com/api/human/${roomName}.svg`}/>
 
             <div className="chat_headerInfo">
                 <h3>{roomName}</h3>
-                <p>Last seen at {new Date(
-                    messages[messages.length - 1]?.timestamp?.toDate()
-                ).toUTCString()}</p>
+                <p>{users.length + ' people'}</p>
             </div>
 
             <div className="chat_headerRight">
-                <IconButton>
+                <IconButton onClick={(e) => console.log(user.uid)}>
                     <SearchIcon />
                 </IconButton>
                 <IconButton>
@@ -83,13 +112,16 @@ function Chat() {
         </div>
 
         <div className="chat_footer">
-            <InsertEmoticonIcon />
+            <IconButton>
+                <InsertEmoticonIcon onClick={handleShowEmoji}/>
+            </IconButton>
             <form onSubmit={sendMessage}>
                 <input 
                 value={input} 
                 onChange={e => setInput(e.target.value)} 
                 type='text' 
-                placeholder='Type a message'/>
+                placeholder='Type a message'
+                ref={inputRef}/>
         
                 <button 
                 onClick={sendMessage} 
@@ -98,6 +130,12 @@ function Chat() {
             <MicIcon />
         </div>
     </div>
+    <div className='emoji_box'>
+        {emojiPopup &&  <Picker 
+        onEmojiClick={emojiClicked}
+         />}
+    </div>
+    </>
   )
 }
 

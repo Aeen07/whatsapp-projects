@@ -1,0 +1,125 @@
+
+.popup {
+    top: 0;
+    left: 0;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+    cursor: auto;
+}
+
+.close_btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background-color: transparent;
+    border: none;
+    font-size: large;
+    cursor: pointer;
+}
+
+.popup_body {
+    position: absolute;
+    padding: 2px;
+    border-radius: 10px;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    background-color: #dadbd3;
+    width: 45vw;
+    height: 55vh;
+    z-index: 2;
+    box-shadow: -1px 4px 20px -6px rgba(0,0,0,0.7);
+}
+
+.popup_input {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.popup_input > h2 {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.popup_input > form > input {
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    padding: 10px;
+    border: none;
+    width: 90%;
+    margin: auto;
+    display: flex;
+
+}
+
+.popup_input > input {
+    border-radius: 30px;
+    padding: 10px;
+    border: none;
+    width: 90%;
+    margin: auto;
+    display: flex;
+    margin-top: 10px;
+}
+
+.popup_input > form {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+    background-color: white;
+    border-radius: 30px;
+}
+
+.popup_input > form > button {
+    border-radius: 30px;
+    border: 2px solid #cacaca;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+    font-size: 20px;
+    margin-right: 4px;
+    margin-top: 3px;
+}
+
+.popup_input > form > input:focus {
+    border: none;
+    outline: none;
+}
+
+.popup_input > input:active {
+    border: none;
+    outline: none;
+}
+
+.popup_create {
+    display: flex;
+    width: 100%;
+    margin-top: 50px;
+    align-items: center;
+}
+
+.popup_create > a {
+    display: flex;
+    margin: auto;
+    background-color: #0cf004;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: black;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 14px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+@media only screen and (max-width: 600px) {
+    .popup_body {
+        width: 90vw;
+    }
+}

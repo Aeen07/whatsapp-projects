@@ -3,9 +3,13 @@ import './SidebarChat.css'
 import { Avatar } from '@mui/material'
 import db from './firebase_str';
 import { Link } from 'react-router-dom';
+import { useStateValue } from './StateProvider';
+import Popup from './Popup';
 
 function SidebarChat({ id, name, addNewChat, sidebar, setSidebar }) {
   const [messages, setMessages] = useState('');
+  const [{ user }, dispatch] = useStateValue();
+  const [openPopup , setOpenPopup] = useState(false);
 
   useEffect(() => {
     if (id) {
@@ -16,30 +20,27 @@ function SidebarChat({ id, name, addNewChat, sidebar, setSidebar }) {
   }, [id])
 
   const createChat = () => {
-    const roomName = prompt('Please enter name for chat room');
-
-    if (roomName) {
-        db.collection('rooms').add({
-          name: roomName,
-        });
-    }
+    setOpenPopup(true);
   };
 
   return !addNewChat ? (
-    <Link to={`/rooms/${id}`} onClick={(e) => (setSidebar(window.innerWidth > 600 ? true : false))}>
-      <div className="sidebarChat">
-          <Avatar src={`https://avatars.dicebear.com/api/human/${name}.svg`}/>
-          <div className="sidebarChat_info">
-              <h2>{name}</h2>
-              <p>{messages[0]?.message}</p>
-          </div>
-      </div>
-    </Link>
+      <Link to={`/rooms/${id}`} onClick={(e) => (setSidebar(window.innerWidth > 600 ? true : false))}>
+        <div className="sidebarChat">
+            <Avatar src={`https://avatars.dicebear.com/api/human/${name}.svg`}/>
+            <div className="sidebarChat_info">
+                <h2>{name}</h2>
+                <p>{messages[0]?.message}</p>
+            </div>
+        </div>
+      </Link>
   ) : (
-    <div onClick={createChat}
-    className='sidebarChat'>
-        <h2>Add new Chat</h2>
-    </div>
+    <>
+      <div onClick={createChat}
+      className='sidebarChat'>
+          <h2>Add new Chat</h2>
+      </div>
+      <Popup trigger={openPopup} setTrigger={setOpenPopup}/>
+    </>
   );
 }
 

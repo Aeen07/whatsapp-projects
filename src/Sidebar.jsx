@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './Sidebar.css'
 import { Avatar, IconButton } from '@mui/material'
+import { useParams } from 'react-router-dom';
 import DonutLargeIcon from '@mui/icons-material/DonutLarge';
 import ChatIcon from '@mui/icons-material/Chat';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -12,8 +13,10 @@ import { useStateValue } from './StateProvider';
 
 function Sidebar() {
   const [sidebarOpen, setSiderbarOpen] = useState(true);
+  const { roomId } = useParams();
   const [rooms, setRooms] = useState([]);
   const [{ user }, dispatch] = useStateValue();
+  const [people, setPeople] = useState([]);
 
   useEffect(() => {
     db.collection('rooms').onSnapshot((snapshot) => 
@@ -24,6 +27,12 @@ function Sidebar() {
       )
     );
   }, [])
+
+  useEffect(() => {
+    db.collection('rooms').doc(roomId).collection('messages').orderBy('timestamp', 'asc').onSnapshot((snapshot) => {
+      setPeople(snapshot.docs.map((doc) => doc.data()))
+  })
+  }, [roomId])
 
   return (
     <div className={sidebarOpen ? 'sidebar' : 'invisible'}>
@@ -57,7 +66,7 @@ function Sidebar() {
       <div className="sidebar_chats">
         <SidebarChat addNewChat/>
         {rooms.map(room => (
-          <SidebarChat key={room.id} id={room.id} name={room.data.name} sidebar={sidebarOpen} setSidebar={setSiderbarOpen}/>
+          room.data.people?.includes(user?.email) ? <SidebarChat key={room.id} id={room.id} name={room.data.name} sidebar={sidebarOpen} setSidebar={setSiderbarOpen}/> : null
         ))}
       </div>
     </div>
