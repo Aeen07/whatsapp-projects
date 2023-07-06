@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './Popup.css'
 import db from './firebase_str';
 import { useStateValue } from './StateProvider';
+import { motion } from 'framer-motion';
 
 function Popup({trigger, setTrigger}) {
   const [input, setInput] = useState('');
@@ -46,9 +47,14 @@ function Popup({trigger, setTrigger}) {
   }
 
   return (trigger) ? (
-    <div className='popup'>
+    <motion.div 
+    animate = {{opacity : 1}} 
+    initial = {{opacity : 0}} 
+    exit={{opacity : 0}}
+    transition={{duration : 0.5}}
+    className='popup'>
         <div className="popup_body">
-            <button className='close_btn' onClick={(e) => (setTrigger(false))}>X</button>
+            <button className='close_btn' onClick={(e) => (setTrigger(false))}>✕</button>
             <div className="popup_input">
                 <h2>room name</h2>
                 <input 
@@ -83,7 +89,7 @@ function Popup({trigger, setTrigger}) {
                 </div>
             </div>
         </div>
-    </div>
+    </motion.div>
   ) : "";
 }
 

@@ -18,6 +18,9 @@
     border: none;
     font-size: large;
     cursor: pointer;
+    font-weight: 1000;
+    -moz-appearance: none;
+    opacity: 1;
 }
 
 .popup_body {
@@ -83,7 +86,9 @@
     cursor: pointer;
     font-size: 20px;
     margin-right: 4px;
-    margin-top: 3px;
+    margin-top: 5px;
+    -webkit-appearance: none;
+    opacity: 1
 }
 
 .popup_input > form > input:focus {
